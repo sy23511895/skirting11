@@ -38,7 +38,6 @@
             flex-direction: column;
         }
 
-        /* 稍微加寬表格內距提升閱讀舒適度 */
         .invoice-table th { background-color: #f8fafc; border-bottom: 2px solid #334155; padding: 10px 8px; }
         .invoice-table td { border: 1px solid #e2e8f0; padding: 10px 8px; }
     </style>
@@ -94,7 +93,7 @@
                     </tr>
                 </thead>
                 <tbody id="invoice-body" class="text-slate-700 text-[14px]">
-                    </tbody>
+                </tbody>
             </table>
             <div class="flex-grow min-h-[20px]"></div>
         </div>
@@ -152,9 +151,11 @@
             const data = JSON.parse(sessionStorage.getItem('INVOICE_DATA'));
             if (!data) return;
 
-            document.getElementById('work-range').innerText = data.workRange || data.filterRange;
+            document.getElementById('work-range').innerText = data.workRange || "";
             document.getElementById('c-name').innerText = data.clientInfo.name;
-            document.getElementById('c-taxid').innerText = data.clientInfo.taxid || '--';
+            
+            // 修正點：將 data.clientInfo.taxid 改為 data.clientInfo.tax 以匹配 index3.html 的資料結構
+            document.getElementById('c-taxid').innerText = data.clientInfo.tax || '--';
             document.getElementById('c-address').innerText = data.clientInfo.address || '--';
             
             if (data.items.length > 0) {
